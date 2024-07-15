@@ -1,0 +1,29 @@
+<mat-form-field>
+  <mat-label>Search Tasks</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Search by task name">
+</mat-form-field>
+
+<mat-slide-toggle [(ngModel)]="showCompleted" (change)="filterTasks()">Show Completed</mat-slide-toggle>
+
+<button mat-raised-button color="primary" (click)="openTaskForm()">Add Task</button>
+
+<div *ngFor="let task of filteredTasks">
+  <mat-card>
+    <mat-card-title>{{ task.name }}</mat-card-title>
+    <mat-card-subtitle>Due: {{ task.dueDate | date }}</mat-card-subtitle>
+    <mat-card-content>
+      <p>{{ task.notes }}</p>
+      <span *ngIf="task.tags?.length">
+        Tags:
+        <span *ngFor="let tag of task.tags" class="tag">{{ tag }}</span>
+      </span>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="editTask(task)">Edit</button>
+      <button mat-button (click)="markAsCompleted(task)">
+        {{ task.completed ? 'Unmark as Completed' : 'Mark as Completed' }}
+      </button>
+      <button mat-button (click)="confirmDelete(task.id)">Delete</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

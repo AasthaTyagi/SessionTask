@@ -1,0 +1,40 @@
+<h1 mat-dialog-title>{{ data ? 'Edit Task' : 'Add Task' }}</h1>
+<div mat-dialog-content>
+  <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Task Name</mat-label>
+      <input matInput formControlName="name" required>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Due Date</mat-label>
+      <input matInput formControlName="dueDate" [matDatepicker]="picker" required>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    
+
+    <mat-form-field appearance="fill">
+      <mat-label>Priority</mat-label>
+      <mat-select formControlName="priority" required>
+        <mat-option value="High">High</mat-option>
+        <mat-option value="Medium">Medium</mat-option>
+        <mat-option value="Low">Low</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Notes</mat-label>
+      <textarea matInput formControlName="notes"></textarea>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Tags</mat-label>
+      <input matInput formControlName="tags">
+    </mat-form-field>
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button [disabled]="taskForm.invalid" (click)="onSubmit()">Save</button>
+</div>
